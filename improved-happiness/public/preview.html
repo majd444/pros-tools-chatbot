@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chat Widget UI Preview</title>
+  <style>
+    /* Mirroring styles from injectStyleFromAgent() for preview */
+    :root {
+      --bg: #fff;
+      --accent: #2563eb;
+      --header: #3B82F6;
+    }
+    #chat-widget-container {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      width: 400px;
+      height: 520px;
+      min-height: 400px;
+      max-height: 520px;
+      background: var(--bg);
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.14);
+      display: none; /* hidden until toggle */
+      flex-direction: column;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      z-index: 999999;
+    }
+    #chat-widget-header {
+      background: var(--header);
+      color: #fff;
+      padding: 12px 16px;
+      font-size: 18px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      line-height: 1.4;
+      height: 60px;
+      min-height: 60px;
+    }
+    #chat-widget-header .title {
+      display: flex; align-items: center; gap: 10px;
+      max-width: 78%;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    #chat-widget-header .title img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+    #chat-widget-header .title span { font-size: 18px; font-weight: 700; }
+    #chat-widget-close { font-size: 22px; line-height: 1; cursor: pointer; padding-left: 10px; }
+
+    #chat-widget-body { display: flex; flex-direction: column; flex: 1; min-height: 0; padding-bottom: 0; position: relative; }
+    #chat-widget-messages { flex: 1; padding: 14px; overflow-y: auto; font-size: 16px; line-height: 1.6; background: var(--bg); }
+
+    .chat-row { display: flex; margin-bottom: 10px; }
+    .chat-row.user { justify-content: flex-end; }
+    .chat-row.bot { justify-content: flex-start; }
+    .bubble { max-width: 85%; padding: 10px 14px; border-radius: 14px; word-wrap: break-word; white-space: pre-wrap; }
+    .bubble.user { background: #3b82f6; color: #fff; border-bottom-right-radius: 6px; }
+    .bubble.bot { background: #f3f4f6; color: #111827; border-bottom-left-radius: 6px; }
+
+    #chat-widget-input { display: flex; border-top: 1px solid #e5e7eb; background: #fff; }
+    #chat-widget-input input { flex: 1; padding: 14px 14px; border: none; outline: none; font-size: 16px; }
+    #chat-widget-input button { background: var(--accent); color: white; border: none; padding: 12px 18px; cursor: pointer; font-weight: 700; font-size: 16px; }
+
+    #chat-widget-toggle { position: fixed; bottom: 18px; right: 18px; background: var(--accent); color: white; border-radius: 50%; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 999998; font-size: 24px; box-shadow: 0 4px 14px rgba(0,0,0,0.18); }
+
+    @media (max-width: 640px) {
+      #chat-widget-container { left: 0; right: 0; bottom: 0; width: 100vw; height: 70vh; max-height: none; border-radius: 16px 16px 0 0; }
+      #chat-widget-toggle { width: 50px; height: 50px; bottom: 16px; right: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-widget-toggle" title="Open chat">💬</div>
+  <div id="chat-widget-container">
+    <div id="chat-widget-header">
+      <div class="title">
+        <img src="https://avatars.githubusercontent.com/u/9919?s=200&v=4" alt="bot" />
+        <span>AI Assistant</span>
+      </div>
+      <span id="chat-widget-close" aria-label="Close">✖</span>
+    </div>
+    <div id="chat-widget-body">
+      <div id="chat-widget-messages">
+        <div class="chat-row bot"><div class="bubble bot">👋 Hi there! How can I help you today?</div></div>
+        <div class="chat-row user"><div class="bubble user">Show me a preview of the new Shopify-style widget.</div></div>
+        <div class="chat-row bot"><div class="bubble bot">Here it is! This preview mirrors spacing, colors, and layout.</div></div>
+      </div>
+      <div id="chat-widget-input">
+        <input type="text" placeholder="Type your message..." />
+        <button>Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('chat-widget-toggle');
+    const container = document.getElementById('chat-widget-container');
+    const closeBtn = document.getElementById('chat-widget-close');
+    toggle.addEventListener('click', () => { container.style.display = 'flex'; toggle.style.display = 'none'; });
+    closeBtn.addEventListener('click', () => { container.style.display = 'none'; toggle.style.display = 'flex'; });
+  </script>
+</body>
+</html>
